@@ -78,23 +78,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "visa — تحدث بطلاقة، اتصل عالمياً" },
+      { title: "Revisa" },
       {
         name: "description",
         content:
-          "منصة تفاعلية متقدمة لتعلم اللغات بطلاقة والتواصل مع العالم. Speak fluently, connect globally.",
+          "سندک رقم واحـد في البكـالـوريـــــا",
       },
-      { property: "og:title", content: "visa — Speak Fluently, Connect Globally" },
+      { property: "og:title", content: "Revisa" },
       {
         property: "og:description",
-        content: "منصة تفاعلية متقدمة لتعلم اللغات والتواصل عالمياً.",
+        content: "سندک رقم واحـد في البكـالـوريـــــا",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Revisa" },
+      { name: "twitter:description", content: "سندک رقم واحـد في البكـالـوريـــــا" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9872ff1a-29ab-4588-a7ef-337111eededb/id-preview-f16b8a96--bddc18c0-af2b-4585-936d-76f0c61022ac.lovable.app-1784683524983.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9872ff1a-29ab-4588-a7ef-337111eededb/id-preview-f16b8a96--bddc18c0-af2b-4585-936d-76f0c61022ac.lovable.app-1784683524983.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
