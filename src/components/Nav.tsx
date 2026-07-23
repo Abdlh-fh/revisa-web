@@ -63,17 +63,22 @@ export function Nav() {
           }}
         >
           {/* Left: Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center group leading-none">
             <img
               src="/favicon.ico"
               alt="Revisa"
-              className="h-9 w-9 rounded-lg object-contain"
+              className="h-9 w-9 object-contain"
             />
             <span
-              className="text-2xl font-extrabold tracking-tight"
-              style={{ color: "#4b8bff", fontFamily: "var(--font-latin)" }}
+              className="font-extrabold tracking-tight leading-none"
+              style={{
+                color: "#045eff",
+                fontFamily: "var(--font-latin)",
+                fontSize: "2.25rem",
+                marginInlineStart: "-2px",
+              }}
             >
-              revisa
+              visa
             </span>
           </Link>
 

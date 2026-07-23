@@ -133,12 +133,7 @@ function Home() {
             ref={addReveal}
             className="reveal text-4xl font-extrabold leading-tight text-white sm:text-6xl"
           >
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg,#4b8bff,#a9c7ff)" }}
-            >
-              {t("method.title")}
-            </span>
+            {t("method.title")}
           </h2>
 
           <p
@@ -259,13 +254,17 @@ function StatsRow() {
       ref={ref}
       className="relative mx-auto mt-20 grid max-w-6xl gap-8 px-4 sm:px-6 sm:grid-cols-2 lg:grid-cols-5"
     >
-      {STATS.map((s) => (
-        <div key={s.key} className="text-center">
+      {STATS.map((s, i) => (
+        <div
+          key={s.key}
+          className={`text-center reveal ${start ? "in" : ""}`}
+          style={{ transitionDelay: `${i * 140}ms` }}
+        >
           <div
             className="text-4xl font-black text-white sm:text-5xl lg:text-[3.25rem] tracking-tight"
             style={{ fontFamily: "var(--font-latin)" }}
           >
-            <Counter target={s.value} run={start} />
+            <Counter target={s.value} run={start} delay={i * 140} />
           </div>
           <div className="mt-4 text-sm font-bold text-white/90">{t(s.key)}</div>
           <div className="mt-1 space-y-0.5">
@@ -281,24 +280,31 @@ function StatsRow() {
   );
 }
 
-function Counter({ target, run }: { target: number; run: boolean }) {
+function Counter({ target, run, delay = 0 }: { target: number; run: boolean; delay?: number }) {
   const [n, setN] = useState(0);
   useEffect(() => {
     if (!run) return;
-    const duration = 3200;
-    const t0 = performance.now();
+    const duration = 2200;
     let raf = 0;
+    let t0 = 0;
     const tick = (t: number) => {
+      if (!t0) t0 = t;
       const p = Math.min(1, (t - t0) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
+      const eased = 1 - Math.pow(1 - p, 4);
       setN(Math.round(target * eased));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [run, target]);
+    const timer = setTimeout(() => {
+      raf = requestAnimationFrame(tick);
+    }, delay);
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
+  }, [run, target, delay]);
   return <span>{n.toLocaleString("en-US")}</span>;
 }
+
 
 /* -------- FAQ + social -------- */
 
