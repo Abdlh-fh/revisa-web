@@ -9,6 +9,12 @@ const LANGS: { code: Lang; name: string; flag: string }[] = [
   { code: "fr", name: "Français", flag: "🇫🇷" },
 ];
 
+const NAV_LINKS = [
+  { to: "/features", key: "nav.features" },
+  { to: "/usage", key: "nav.usage" },
+  { to: "/about", key: "nav.about" },
+] as const;
+
 export function Nav() {
   const { lang, setLang, t } = useI18n();
   const [langOpen, setLangOpen] = useState(false);
@@ -45,45 +51,47 @@ export function Nav() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <nav
-          className={`glass flex items-center justify-between rounded-2xl px-4 py-3 sm:px-6 ${
-            scrolled ? "shadow-[0_10px_40px_-10px_rgba(4,94,255,0.35)]" : ""
-          }`}
+          className="flex items-center justify-between rounded-2xl px-4 py-3 sm:px-6 border border-white/10"
           dir="ltr"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(10,22,70,0.92) 0%, rgba(8,14,76,0.88) 100%)",
+            backdropFilter: "blur(18px)",
+            boxShadow: scrolled
+              ? "0 10px 40px -10px rgba(4,94,255,0.45)"
+              : "0 6px 24px -12px rgba(4,94,255,0.35)",
+          }}
         >
-          {/* Left cluster: controls */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Hamburger */}
-            <div className="relative">
-              <button
-                onClick={() => {
-                  setMenuOpen((v) => !v);
-                  setLangOpen(false);
-                }}
-                aria-label="menu"
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition"
-              >
-                {menuOpen ? (
-                  <X className="h-5 w-5 text-white" />
-                ) : (
-                  <Menu className="h-5 w-5 text-white" />
-                )}
-              </button>
-              {menuOpen && (
-                <div className="absolute start-0 mt-2 w-52 rounded-xl border border-white/15 bg-[#0a0f22]/95 backdrop-blur-xl p-2 shadow-2xl animate-in fade-in slide-in-from-top-2">
-                  <MenuLink to="/" label={t("nav.home")} onClick={() => setMenuOpen(false)} />
-                  <MenuLink to="/features" label={t("nav.features")} onClick={() => setMenuOpen(false)} />
-                  <MenuLink to="/about" label={t("nav.about")} onClick={() => setMenuOpen(false)} />
-                  <button className="sm:hidden mt-1 w-full rounded-lg brand-gradient px-3 py-2 text-sm font-semibold text-white">
-                    تسجيل الدخول
-                  </button>
-                </div>
-              )}
-            </div>
+          {/* Left: Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <img
+              src="/favicon.ico"
+              alt="Revisa"
+              className="h-9 w-9 rounded-lg object-contain"
+            />
+            <span
+              className="text-2xl font-extrabold tracking-tight"
+              style={{ color: "#4b8bff", fontFamily: "var(--font-latin)" }}
+            >
+              revisa
+            </span>
+          </Link>
 
-            {/* Log in */}
-            <button className="hidden sm:inline-flex rounded-full brand-gradient brand-glow px-5 py-2 text-sm font-semibold text-white hover:brightness-110 transition">
-              تسجيل الدخول
-            </button>
+          {/* Right cluster */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Desktop inline links */}
+            <div className="hidden md:flex items-center gap-1">
+              {NAV_LINKS.map((l) => (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className="rounded-full px-3.5 py-2 text-sm font-semibold text-white/85 hover:text-white hover:bg-white/10 transition"
+                  activeProps={{ className: "bg-white/10 text-[#8ab3ff]" }}
+                >
+                  {t(l.key)}
+                </Link>
+              ))}
+            </div>
 
             {/* Language */}
             <div className="relative">
@@ -100,7 +108,7 @@ export function Nav() {
                 <ChevronDown className="h-3.5 w-3.5 opacity-70" />
               </button>
               {langOpen && (
-                <div className="absolute start-0 mt-2 w-44 rounded-xl border border-white/15 bg-[#0a0f22]/95 backdrop-blur-xl p-1 shadow-2xl animate-in fade-in slide-in-from-top-2">
+                <div className="absolute end-0 mt-2 w-44 rounded-xl border border-white/15 bg-[#0a1246]/95 backdrop-blur-xl p-1 shadow-2xl animate-in fade-in slide-in-from-top-2">
                   {LANGS.map((l) => (
                     <button
                       key={l.code}
@@ -119,22 +127,38 @@ export function Nav() {
                 </div>
               )}
             </div>
-          </div>
 
-          {/* Right: Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <span
-              className="text-2xl font-extrabold tracking-tight"
-              style={{ color: "#045eff", fontFamily: "var(--font-latin)" }}
-            >
-              revisa
-            </span>
-            <img
-              src="/favicon.ico"
-              alt="Revisa"
-              className="h-9 w-9 rounded-lg object-contain"
-            />
-          </Link>
+            {/* Hamburger (mobile only) */}
+            <div className="relative md:hidden">
+              <button
+                onClick={() => {
+                  setMenuOpen((v) => !v);
+                  setLangOpen(false);
+                }}
+                aria-label="menu"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition"
+              >
+                {menuOpen ? (
+                  <X className="h-5 w-5 text-white" />
+                ) : (
+                  <Menu className="h-5 w-5 text-white" />
+                )}
+              </button>
+              {menuOpen && (
+                <div className="absolute end-0 mt-2 w-52 rounded-xl border border-white/15 bg-[#0a1246]/95 backdrop-blur-xl p-2 shadow-2xl animate-in fade-in slide-in-from-top-2">
+                  <MenuLink to="/" label={t("nav.home")} onClick={() => setMenuOpen(false)} />
+                  {NAV_LINKS.map((l) => (
+                    <MenuLink
+                      key={l.to}
+                      to={l.to}
+                      label={t(l.key)}
+                      onClick={() => setMenuOpen(false)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </nav>
       </div>
     </div>
