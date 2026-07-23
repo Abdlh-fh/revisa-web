@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Play } from "lucide-react";
 import collabImg from "@/assets/collab-illustration.jpg";
 import { useI18n } from "@/lib/i18n";
 
@@ -24,8 +23,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const TELEGRAM_LOGO =
-  "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@develop/icons/telegram.svg";
+const BRAND_GRADIENT = "linear-gradient(135deg,#4b8bff 0%,#045eff 60%,#a9c7ff 100%)";
 
 function Home() {
   const { t, dir } = useI18n();
@@ -61,26 +59,21 @@ function Home() {
             className="mx-auto text-4xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-6xl lg:text-7xl"
             style={{ fontFamily: "var(--font-latin)" }}
           >
-            Revisa{" "}
             <span
               className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg,#4b8bff 0%,#045eff 60%,#a9c7ff 100%)",
-              }}
+              style={{ backgroundImage: BRAND_GRADIENT }}
             >
-              Smartly,
-            </span>
-            <br className="hidden sm:block" /> Succeed{" "}
+              Revisa
+            </span>{" "}
+            Smartly,
+            <br className="hidden sm:block" />{" "}
             <span
               className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg,#4b8bff 0%,#045eff 60%,#a9c7ff 100%)",
-              }}
+              style={{ backgroundImage: BRAND_GRADIENT }}
             >
-              Confidently.
-            </span>
+              Succeed
+            </span>{" "}
+            Confidently.
           </h1>
 
           {/* MISSION */}
@@ -91,16 +84,11 @@ function Home() {
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
               {t("mission.body")}
             </p>
-            <div className="mt-10 flex justify-center">
-              <button className="group inline-flex items-center gap-2 rounded-full brand-gradient brand-glow px-7 py-3.5 text-sm font-bold text-white transition hover:brightness-110">
-                {t("hero.cta")}
-              </button>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ILLUSTRATION with fade to black */}
+      {/* ILLUSTRATION with softer fade */}
       <section className="relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="relative overflow-hidden rounded-3xl border border-white/10">
@@ -113,31 +101,41 @@ function Home() {
               className="w-full object-cover"
             />
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
               style={{
-                background: "linear-gradient(to bottom, transparent, #000000)",
+                background:
+                  "linear-gradient(to bottom, transparent, rgba(8,14,76,0.85))",
               }}
             />
           </div>
         </div>
-        <div
-          className="pointer-events-none absolute inset-x-0 -bottom-1 h-40"
-          style={{ background: "linear-gradient(to bottom, transparent, #000000)" }}
-        />
       </section>
 
-      {/* METHOD */}
-      <section className="relative bg-black py-24 sm:py-32">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
+      {/* METHOD + STATS wrapped in themed background */}
+      <section
+        className="relative py-24 sm:py-32 overflow-hidden"
+        style={{ background: "#080E4C" }}
+      >
+        {/* Impurity blobs top */}
+        <div
+          className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full blur-3xl opacity-70"
+          style={{ background: "radial-gradient(circle, #0f5588 0%, transparent 70%)" }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -top-32 right-0 h-80 w-80 rounded-full blur-3xl opacity-60"
+          style={{ background: "radial-gradient(circle, #0f5588 0%, transparent 70%)" }}
+          aria-hidden
+        />
+
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <h2
             ref={addReveal}
             className="reveal text-4xl font-extrabold leading-tight text-white sm:text-6xl"
           >
             <span
               className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage: "linear-gradient(135deg,#4b8bff,#045eff)",
-              }}
+              style={{ backgroundImage: "linear-gradient(135deg,#4b8bff,#a9c7ff)" }}
             >
               {t("method.title")}
             </span>
@@ -145,7 +143,7 @@ function Home() {
 
           <p
             ref={addReveal}
-            className="reveal mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl"
+            className="reveal mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl"
           >
             {t("method.body")}
           </p>
@@ -156,7 +154,10 @@ function Home() {
       </section>
 
       {/* ACCESS */}
-      <section className="relative bg-black py-24 sm:py-32">
+      <section
+        className="relative py-24 sm:py-32"
+        style={{ background: "#080E4C" }}
+      >
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <h2 className="text-4xl font-extrabold text-white sm:text-6xl">
             {t("access.title")}
@@ -166,9 +167,13 @@ function Home() {
           </p>
 
           <div className="mt-12 flex items-center justify-center gap-6 sm:gap-10">
-            <LogoBadge src="/favicon.ico" alt="Revisa" />
+            <LogoBadge>
+              <img src="/favicon.ico" alt="Revisa" className="h-14 w-14 object-contain sm:h-16 sm:w-16" />
+            </LogoBadge>
             <span className="text-3xl font-black text-white/40">×</span>
-            <LogoBadge src={TELEGRAM_LOGO} alt="Telegram" tint="#229ED9" />
+            <LogoBadge tint="#229ED9">
+              <TelegramMark />
+            </LogoBadge>
           </div>
 
           <p
@@ -180,20 +185,42 @@ function Home() {
         </div>
       </section>
 
-      {/* FAQ (white curved) */}
+      {/* FAQ (white curved TOP) */}
       <FaqSection />
     </main>
   );
 }
 
-function LogoBadge({ src, alt, tint }: { src: string; alt: string; tint?: string }) {
+function LogoBadge({ children, tint }: { children: React.ReactNode; tint?: string }) {
   return (
     <div
       className="grid h-24 w-24 place-items-center rounded-2xl glass brand-glow sm:h-28 sm:w-28"
       style={tint ? { boxShadow: `0 10px 40px -10px ${tint}80` } : undefined}
     >
-      <img src={src} alt={alt} className="h-14 w-14 object-contain sm:h-16 sm:w-16" />
+      {children}
     </div>
+  );
+}
+
+function TelegramMark() {
+  return (
+    <svg
+      viewBox="0 0 240 240"
+      className="h-14 w-14 sm:h-16 sm:w-16"
+      aria-label="Telegram"
+    >
+      <defs>
+        <linearGradient id="tg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#37AEE2" />
+          <stop offset="1" stopColor="#1E96C8" />
+        </linearGradient>
+      </defs>
+      <circle cx="120" cy="120" r="120" fill="url(#tg)" />
+      <path
+        fill="#FFFFFF"
+        d="M53 116.5c34-14.8 56.7-24.6 68-29.4 32.4-13.6 39.1-16 43.5-16 1 0 3.1.2 4.5 1.3 1.2.9 1.5 2.1 1.7 3 .1.8.3 2.7.1 4.2-1.9 20-10.2 68.5-14.4 90.9-1.8 9.5-5.3 12.7-8.6 13-7.3.7-12.8-4.8-19.9-9.4-11-7.3-17.3-11.8-28-19-12.4-8.2-4.4-12.7 2.7-20 1.9-1.9 34-31.1 34.6-33.7.1-.3.2-1.5-.6-2.2-.7-.7-1.8-.4-2.6-.2-1.1.2-18.7 11.9-52.9 34.9-5 3.4-9.5 5.1-13.6 5-4.5-.1-13.1-2.5-19.5-4.6-7.9-2.6-14.1-3.9-13.6-8.3.3-2.3 3.4-4.6 9.6-7.1z"
+      />
+    </svg>
   );
 }
 
@@ -208,7 +235,7 @@ const STATS = [
 ];
 
 function StatsRow() {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
   const ref = useRef<HTMLDivElement>(null);
   const [start, setStart] = useState(false);
 
@@ -230,26 +257,20 @@ function StatsRow() {
   return (
     <div
       ref={ref}
-      className="mx-auto mt-16 grid max-w-6xl gap-5 px-4 sm:px-6 sm:grid-cols-2 lg:grid-cols-5"
+      className="relative mx-auto mt-20 grid max-w-6xl gap-8 px-4 sm:px-6 sm:grid-cols-2 lg:grid-cols-5"
     >
       {STATS.map((s) => (
-        <div
-          key={s.key}
-          className="glass rounded-2xl p-6 text-center transition hover:-translate-y-1 hover:border-[#045eff]/50"
-        >
+        <div key={s.key} className="text-center">
           <div
-            className="bg-clip-text text-3xl font-black text-transparent sm:text-4xl"
-            style={{
-              backgroundImage: "linear-gradient(135deg,#4b8bff,#045eff)",
-              fontFamily: "var(--font-latin)",
-            }}
+            className="text-4xl font-black text-white sm:text-5xl lg:text-[3.25rem] tracking-tight"
+            style={{ fontFamily: "var(--font-latin)" }}
           >
-            <Counter target={s.value} run={start} locale={lang} />
+            <Counter target={s.value} run={start} />
           </div>
-          <div className="mt-3 text-sm font-bold text-white">{t(s.key)}</div>
+          <div className="mt-4 text-sm font-bold text-white/90">{t(s.key)}</div>
           <div className="mt-1 space-y-0.5">
             {s.subs.map((k) => (
-              <div key={k} className="text-[11px] text-white/50">
+              <div key={k} className="text-[11px] text-white/55">
                 {t(k)}
               </div>
             ))}
@@ -260,19 +281,11 @@ function StatsRow() {
   );
 }
 
-function Counter({
-  target,
-  run,
-  locale,
-}: {
-  target: number;
-  run: boolean;
-  locale: string;
-}) {
+function Counter({ target, run }: { target: number; run: boolean }) {
   const [n, setN] = useState(0);
   useEffect(() => {
     if (!run) return;
-    const duration = 1800;
+    const duration = 3200;
     const t0 = performance.now();
     let raf = 0;
     const tick = (t: number) => {
@@ -284,13 +297,13 @@ function Counter({
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [run, target]);
-  return <span>{n.toLocaleString(locale === "ar" ? "ar-EG" : locale)}</span>;
+  return <span>{n.toLocaleString("en-US")}</span>;
 }
 
 /* -------- FAQ + social -------- */
 
 function FaqSection() {
-  const { t } = useI18n();
+  const { t, dir } = useI18n();
   const items = [
     { q: "faq.q1", a: "faq.a1" },
     { q: "faq.q2", a: "faq.a2" },
@@ -300,53 +313,70 @@ function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="relative bg-black pt-8">
+    <section className="relative" style={{ background: "#080E4C" }}>
       <div
-        className="relative bg-white pt-20 pb-24 sm:pt-28 sm:pb-32"
-        style={{ borderBottomLeftRadius: "48px", borderBottomRightRadius: "48px" }}
+        className="relative bg-white pt-24 pb-20 sm:pt-32 sm:pb-24"
+        style={{ borderTopLeftRadius: "48px", borderTopRightRadius: "48px" }}
       >
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <h2 className="text-4xl font-extrabold text-[#0a0f22] sm:text-5xl">
+          <span
+            className="inline-block rounded-full bg-[#045eff]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.3em] text-[#045eff]"
+            style={{ fontFamily: "var(--font-latin)" }}
+          >
+            FAQ
+          </span>
+          <h2 className="mt-5 text-4xl font-extrabold text-[#0a0f22] sm:text-5xl">
             {t("faq.title")}
           </h2>
 
-          <div className="mt-10 space-y-3 text-right">
+          <div className="mt-12 space-y-4" dir={dir}>
             {items.map((it, i) => {
               const isOpen = open === i;
               return (
                 <div
                   key={it.q}
-                  className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition"
+                  className={`group overflow-hidden rounded-2xl border transition-all duration-300 ${
+                    isOpen
+                      ? "border-[#045eff]/30 bg-white shadow-[0_10px_40px_-12px_rgba(4,94,255,0.35)]"
+                      : "border-black/8 bg-white/70 hover:border-[#045eff]/20 hover:bg-white"
+                  }`}
                 >
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-right"
+                    className="flex w-full items-center gap-4 px-6 py-5"
                   >
                     <span
-                      className={`grid h-8 w-8 place-items-center rounded-full text-lg font-black transition ${
+                      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-base font-black transition ${
                         isOpen
-                          ? "brand-gradient text-white"
-                          : "bg-[#f1f4fb] text-[#045eff]"
+                          ? "brand-gradient text-white shadow-md"
+                          : "bg-[#f1f4fb] text-[#045eff] group-hover:bg-[#e6ecfb]"
                       }`}
                     >
                       {isOpen ? "−" : "+"}
                     </span>
-                    <span className="flex-1 text-lg font-bold text-[#0a0f22]">
+                    <span className="flex-1 text-center text-lg font-bold text-[#0a0f22]">
                       {t(it.q)}
                     </span>
+                    <span className="h-9 w-9 shrink-0" aria-hidden />
                   </button>
-                  {isOpen && (
-                    <div className="px-5 pb-5 text-right text-sm leading-relaxed text-[#4a5170]">
-                      {t(it.a)}
+                  <div
+                    className={`grid transition-all duration-300 ease-out ${
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="px-6 pb-6 text-center text-[15px] leading-relaxed text-[#4a5170]">
+                        {t(it.a)}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}
           </div>
 
           {/* Socials */}
-          <div className="mt-12 flex items-center justify-center gap-4">
+          <div className="mt-14 flex items-center justify-center gap-4">
             <SocialIcon href="https://tiktok.com" label="TikTok">
               <TikTokIcon />
             </SocialIcon>
@@ -360,6 +390,10 @@ function FaqSection() {
               <TelegramIcon />
             </SocialIcon>
           </div>
+
+          <p className="mt-8 text-xs font-medium text-[#4a5170]/70">
+            {t("footer.rights")}
+          </p>
         </div>
       </div>
     </section>
