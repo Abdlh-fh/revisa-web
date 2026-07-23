@@ -305,24 +305,6 @@ function Counter({ target, run, delay = 0 }: { target: number; run: boolean; del
   return <span>{n.toLocaleString("en-US")}</span>;
 }
 
-function Counter({ target, run }: { target: number; run: boolean }) {
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    if (!run) return;
-    const duration = 3200;
-    const t0 = performance.now();
-    let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setN(Math.round(target * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [run, target]);
-  return <span>{n.toLocaleString("en-US")}</span>;
-}
 
 /* -------- FAQ + social -------- */
 
